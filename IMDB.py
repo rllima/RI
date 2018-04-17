@@ -3,10 +3,12 @@ from bs4 import BeautifulSoup as bs
 import json as js
 
 
-
-
 r = rq.get("http://www.imdb.com/title/tt0413573/?ref_=nv_sr_1")
 soup = bs(r.content)
+title = soup.find("h1",{"itemprop": "name"}).text
+print(title)
+rating = soup.find("span",{"itemprop": "ratingValue" }).text
+print (rating)
 cast_table = soup.find("table", {"class" : "cast_list"}).find_all("span",{"class": "itemprop"})
 for item in cast_table:
     actor = item.text
@@ -25,8 +27,7 @@ for item in genres:
     genre.append(item.text);
 print(genre)
 
-details = soup.find("div", {"id": "titleDetails"})
-title =  soup.find("div",{"class": "title_wrapper"})
+details = soup.find("div", {"id": "titleDetails"}).find_all("div")
 
-numberOfSeasons = title.find("div",{"class": "originalTitle"})
-print(numberOfSeasons)
+country = details[1].a.text
+language = details[2].a.text
