@@ -1,10 +1,7 @@
-import requests as rq
-from bs4 import BeautifulSoup as bs
-import json as js
+import reader as r
 
 
-r = rq.get("http://www.imdb.com/title/tt0413573/?ref_=nv_sr_1")
-soup = bs(r.content)
+soup = r.get_link("http://www.imdb.com/title/tt0413573/?ref_=nv_sr_1")
 title = soup.find("h1",{"itemprop": "name"}).text
 creator = soup.find("span",{"itemprop": "creator"}).text
 print(title)
