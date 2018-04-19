@@ -6,6 +6,7 @@ import json as js
 r = rq.get("http://www.imdb.com/title/tt0413573/?ref_=nv_sr_1")
 soup = bs(r.content)
 title = soup.find("h1",{"itemprop": "name"}).text
+creator = soup.find("span",{"itemprop": "creator"}).text
 print(title)
 rating = soup.find("span",{"itemprop": "ratingValue" }).text
 print (rating)
